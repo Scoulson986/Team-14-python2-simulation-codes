@@ -39,7 +39,7 @@ class SimulationAssignment():
     # You can use additional cameras, but will have to add then in the V-REP scene
     # and bind the handle in Car.__init__. The V-REP remote API doesn't provide a
     # way to instantiate additional vision sensors.
-    car.set_line_camera_parameters(0, height=0.3, orientation=55, fov=90)
+    car.set_line_camera_parameters(0, height=0.3, orientation=45, fov=90)
     car.set_line_camera_parameters(1, height=0.4, orientation=15, fov=60)
     # You should measure the steering servo limit and set it here.
     # A more accurate approach would be to implement servo slew limiting.
@@ -162,16 +162,16 @@ class SimulationAssignment():
     self.int_err = self.int_err + dt*lat_err
 
     # Proportional gain in steering control (degrees) / lateral error (meters)
-    kp = 195
-    kd = 0.5*kp# deg per m/s
-    ki = 0.4*kp # deg per m-s
+    kp = 350
+    kd = 0.2*kp# deg per m/s
+    ki = 0.1*kp # deg per m-s
     steer_angle = -kp * lat_err - kd*lat_vel - ki* self.int_err
 
     steer_angle = car.set_steering(steer_angle, dt)  # use set_steering to include servo slew rate limit
     # steer_angle = car.set_steering_fast(steer_angle,dt)  # use set_steering_fast for no delay
     
     # Constant speed for now. You can tune this and/or implement advanced controllers.
-    car.set_speed(3)
+    car.set_speed(3.43)
 
     # Print out and record debugging info
     pos = car.get_position()
