@@ -1,0 +1,59 @@
+Car Simulator Installation Instructions
+March 8, 2020
+
+*only tested so far under Python 2.7*
+
+Here is the file for the simulation assignment: CarSim2017.zip
+which contains a basic V-Rep ``scene'': fig8-2020.ttt
+and the controller: carTest-slew20-line.py
+
+You will need to
+1. install V-REP Educational Pro 3.6.2 (CoppeliaSim has not been tested but looks fairly compatible)
+https://www.coppeliarobotics.com/previousVersions
+
+Tested on Win10 using python 2.7 and numpy 1.5.1
+2. Place remoteApi.dll (Windows), remoteApi.dylib (Mac) or remoteApi.so (Linux) in cwd.
+Above files are located in V-REP's installation directory, 
+under programming/remoteApiBindings/lib/lib
+
+*** A Model of test track on third floor of Cory will be provided later ***
+ 
+The track has features representative of actual previous NATCAR tracks,
+including the pretzel, loops, a slalom segment, a long straight
+segment, and sharp jogs.
+
+Note: the car has NOT been tuned yet to match the physical one (yet -
+this may be done in the future, especially if teams find the
+simulation tool useful) but should at least illustrate PID tuning
+concepts, limiting factors, and perhaps serve as a testbed for
+high-level (like learning) algorithms.
+
+The infrastructure is set up so that you shouldn't need to learn how
+to use V-REP for the assignment. All your controller code (plus
+optional tuning parameters like camera angles) can be written in the
+SimulationAssignment class, control_loop function in carTest-slew20-line.py
+
+To run the simulation:
+1. start V-REP
+2.  in V-Rep: File-> open scene -> carscale_oneLoop.ttt
+(V-Rep is now waiting for commands from python to drive the car. You do not need
+to explicitly start the simulation running.)
+3. python carTest-slew20-line.py
+or run in a Spyder ipython shell
+Python likes to crash the first time, so run again. V-Rep may give a warning about custom
+sim parameters- click do not show again.
+
+4. Checking results:
+After a run of 1500 samples, a file car_data.csv is created, 
+which can be plotted using Matlab script cardata_plot.m)
+To start again at initial position, click big square in V-Rep to stop/reset sim.
+If you use carTest-slew20-line.py, a file line_data.csv can be examined using linescanplot-sim.py, to see directly what the camera is seeing.
+
+
+See the help documentation (run python carTest-slew20-line.py -h) 
+to see more options, like csv file dumping, automatic simulation
+restarting, and synchronous mode.
+
+Please post questions here on Piazza under this thread.
+It mostly worked last year, but things can change with upgrades, so test early that the simulator and python work for you.
+ 
